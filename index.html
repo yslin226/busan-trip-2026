@@ -183,6 +183,8 @@ h2 .dot { width: 14px; height: 14px; border: var(--line); border-radius: 50%; fl
 .leg-plane { --leg-c: var(--water); --leg-bg: var(--water-pale); }
 .leg-car { --leg-c: var(--bamboo); --leg-bg: var(--bamboo-pale); }
 .leg-walk { --leg-c: var(--white); --leg-bg: var(--paper); }
+.leg-bus { --leg-c: var(--bamboo); --leg-bg: var(--bamboo-pale); }
+.leg-bus .leg-runner svg { animation: bump .6s ease-in-out infinite; }
 .leg-top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .leg-mode {
   display: inline-flex; align-items: center; gap: 4px; flex: none;
@@ -444,14 +446,14 @@ footer { margin-top: 40px; text-align: center; color: var(--ink-soft); font-size
       <p class="note" style="margin:0">搭計程車把韓文地址給司機看就好。最後一天退房後行李可以寄放飯店。</p>
     </div>
     <div class="booked">
-      <div class="card"><span class="sw" style="background:var(--water)"></span><div><strong>釜山通行證 48 小時（3 人）</strong><p>Day 3 搭松島纜車時第一次使用，可以一路用到 10/28 上午</p></div></div>
+      <div class="card"><span class="sw" style="background:var(--water)"></span><div><strong>釜山通行證 48 小時（3 人）</strong><p>Day 3 搭松島纜車時第一次使用，可以一路用到 10/28 中午</p></div></div>
       <div class="card"><span class="sw" style="background:var(--coral)"></span><div><strong>天空膠囊列車・10/27 13:30–14:00</strong><p>青沙浦出發 → 尾浦，第 3 人到現場窗口補差價</p></div></div>
-      <div class="card"><span class="sw" style="background:var(--yellow)"></span><div><strong>鑽石灣夜間遊艇・10/27 20:30</strong><p>龍湖灣遊覽船碼頭上船，帶護照、通行證和外套</p></div></div>
+      <div class="card"><span class="sw" style="background:var(--yellow)"></span><div><strong>鑽石灣夜間遊艇・10/27 20:30</strong><p>20:00 前到 부산 남구 분포로 101（龍湖灣遊覽船碼頭 1 樓），帶護照、通行證和外套</p></div></div>
       <div class="card"><span class="sw" style="background:var(--bamboo)"></span><div><strong>韓國旅遊諮詢熱線 1330</strong><p>24 小時，有中文服務，迷路或要翻譯可以打</p></div></div>
     </div>
   </section>
 
-  <footer>Day 5 敬請期待・資料來源：Notion 行程規劃表</footer>
+  <footer>這份行程是我們一家三口實際走過再整理的，歡迎拿去參考。<br>營業時間、班次以出發前 Naver Map 查到的為準。</footer>
 </main>
 
 <div class="toast" id="toast" role="status"></div>
@@ -486,31 +488,30 @@ footer { margin-top: 40px; text-align: center; color: var(--ink-soft); font-size
     },
     {
       id: "day2", label: "Day 2", date: "10/25", dow: "日", ymd: "2026-10-25",
-      title: "慶州一日遊", sub: "KTX 來回・千年古都",
+      title: "慶州一日遊", sub: "KTX 來回・市區公車・千年古都",
       art: "tower",
-      warns: ["下午降雨機率 60%，記得帶傘", "KTX 從「釜山站 부산역」出發，不是부전역"],
+      warns: ["這天是照我們實際走過的路線整理：新慶州站到佛國寺、佛國寺到皇理團路都搭公車，用 iPhone 的 T-money 或 T-money 卡刷", "KTX 從「釜山站 부산역」出發，不是부전역；新慶州站現在官方名稱是「경주역」", "短程（1–2 公里）用 Uber / Kakao T 常沒人接，走路比較快"],
       items: [
-        { time: "08:00", s: "08:00", e: "08:30", kind: "food", title: "早餐（飯店或豬肉湯飯）" },
         { time: "08:30", s: "08:30", e: "09:05", kind: "move", tags: ["subway"], title: "地鐵 1 號線 西面 → 釜山站", note: "往다대포해수욕장方向，坐 6 站", kr: { name: "서면역 → 부산역", addr: "" } },
-        { time: "09:30", s: "09:30", e: "10:00", kind: "move", tags: ["ktx"], title: "KTX 釜山 → 新慶州", note: "約 30 分，每人約 11,000 韓元", kr: { name: "부산역 → 신경주역", addr: "" } },
-        { time: "10:05", s: "10:05", e: "10:45", kind: "move", tags: ["taxi"], title: "計程車 → 佛國寺" },
-        { time: "10:45", s: "10:45", e: "12:00", kind: "must", title: "佛國寺", note: "免費，09:00–18:00", kr: { name: "불국사", addr: "경북 경주시 불국로 385" } },
-        { time: "12:00", s: "12:00", e: "12:30", kind: "move", tags: ["taxi"], title: "計程車 → 皇理團路" },
-        { time: "12:30", s: "12:30", e: "13:30", kind: "food", title: "午餐：陳家大邱排骨 本店", note: "要排隊，先打電話登記；16:00–17:00 休息", kr: { name: "진가네대구갈비 본점", addr: "경북 경주시 북정로 5" } },
-        { time: "13:30", s: "13:30", e: "13:40", kind: "food", title: "皇南餅本店：先下單，逛完再拿", kr: { name: "황남빵 본점", addr: "경북 경주시 태종로 783" } },
-        { time: "13:40", s: "13:40", e: "15:00", kind: "spot", tags: ["walk"], title: "皇理團路：黃金十元餅＋Olive 韓屋咖啡廳", kr: { name: "경주황금십원빵 본점", addr: "경북 경주시 황남동 290-2" },
-          alts: [ { label: "咖啡廳", title: "Olive Cafe", kr: { name: "올리브 카페", addr: "경북 경주시 사정로57번길 7-6" } } ] },
-        { time: "15:00", s: "15:00", e: "15:45", kind: "spot", tags: ["walk"], title: "大陵苑", note: "免費", kr: { name: "경주대릉원", addr: "경북 경주시 황남동 31-1" } },
-        { time: "15:50", s: "15:50", e: "16:15", kind: "spot", tags: ["walk"], title: "瞻星臺", note: "從大陵苑南門出來就接到", kr: { name: "첨성대", addr: "경북 경주시 인왕동 839-1" } },
-        { time: "16:20", s: "16:20", e: "17:00", kind: "spot", tags: ["walk"], title: "校村韓屋村＋月精橋", kr: { name: "월정교", addr: "경북 경주시 교동 274" },
+        { time: "09:30", s: "09:30", e: "10:00", kind: "move", tags: ["ktx"], title: "KTX 釜山 → 新慶州", note: "約 30 分，每人約 11,000 韓元，先在 Korail 或 Trip.com 買票", kr: { name: "부산역 → 경주역（구 신경주역）", addr: "" } },
+        { time: "10:05", s: "10:05", e: "11:15", kind: "move", tags: ["bus"], title: "公車 新慶州站 → 佛國寺", note: "①站牌 03142 搭 50、51、70-001（從這站發車不會坐反）②在「고속버스터미널」（勾嗽 播斯 偷咪諾）下車刷卡 ③換 10 或 11 號，30 分鐘內轉乘免費 ④聽到「依崩 宗溜將恩 噗兒咕撒」按鈴。前門上後門下、車來要招手、外帶咖啡杯不能上車。想快就搭計程車，約 30–40 分", kr: { name: "불국사", addr: "경북 경주시 불국로 385" } },
+        { time: "11:15", s: "11:15", e: "12:30", kind: "must", title: "佛國寺", note: "免費，09:00–18:00。不確定上車對不對，可以問司機「불국사 가요?」（噗兒咕撒 咖呦）", kr: { name: "불국사", addr: "경북 경주시 불국로 385" } },
+        { time: "12:30", s: "12:30", e: "13:25", kind: "move", tags: ["bus"], title: "公車 佛國寺 → 皇理團路", note: "Naver 導航到十元餅本店，搭 10-003（轉一次車），在「서라벌사거리·황리단길」（搜拉播兒 撒狗哩，站號 01189）下車。前一站「中央市場 중앙시장」先不要按鈴", kr: { name: "서라벌사거리·황리단길", addr: "" } },
+        { time: "13:25", s: "13:25", e: "13:35", kind: "move", tags: ["walk"], title: "走路 → 皇理團路", note: "下車走約 11 分" },
+        { time: "13:35", s: "13:35", e: "14:30", kind: "food", title: "（可跳過）午餐：陳家大邱排骨 本店", note: "要排隊，先打電話登記；16:00–17:00 休息。我們那天吃飽了就跳過，邊走邊吃十元餅", kr: { name: "진가네대구갈비 본점", addr: "경북 경주시 북정로 5" } },
+        { time: "14:30", s: "14:30", e: "15:30", kind: "spot", tags: ["walk"], title: "皇理團路：十元餅＋皇南餅＋Olive 咖啡廳", note: "十元餅本店邊走邊吃；皇南餅本店可以先下單、逛完再拿", kr: { name: "경주황금십원빵 본점", addr: "경북 경주시 황남동 290-2" },
+          alts: [ { label: "皇南餅本店", title: "황남빵（晃難棒）", kr: { name: "황남빵 본점", addr: "경북 경주시 태종로 783" } }, { label: "☕ 休息", title: "Olive 韓屋咖啡廳", kr: { name: "올리브 카페", addr: "경북 경주시 사정로57번길 7-6" } } ] },
+        { time: "15:30", s: "15:30", e: "16:10", kind: "spot", tags: ["walk"], title: "大陵苑", note: "免費，新羅古墳群，就在皇理團路旁邊", kr: { name: "경주대릉원", addr: "경북 경주시 황남동 31-1" } },
+        { time: "16:10", s: "16:10", e: "16:35", kind: "spot", tags: ["walk"], title: "瞻星臺", note: "從大陵苑南門出來就接到，免費", kr: { name: "첨성대", addr: "경북 경주시 인왕동 839-1" } },
+        { time: "16:35", s: "16:35", e: "16:50", kind: "move", tags: ["walk"], title: "走路 → 校村、月精橋", note: "約 15 分，平路" },
+        { time: "16:50", s: "16:50", e: "17:25", kind: "spot", tags: ["walk"], title: "校村韓屋村＋月精橋", kr: { name: "월정교", addr: "경북 경주시 교동 274" },
           alts: [ { label: "校村", title: "校村韓屋村", kr: { name: "교촌마을", addr: "경북 경주시 교동 88-5" } } ] },
-        { time: "17:10", s: "17:10", e: "18:25", kind: "must", title: "東宮與月池（看點燈）", note: "門票 3,000 韓元；17:40 日落後點燈最美。18:10 先用 Kakao T 叫車", kr: { name: "동궁과 월지", addr: "경북 경주시 원화로 102" } },
-        { time: "18:25", s: "18:25", e: "18:55", kind: "move", tags: ["taxi"], title: "計程車 → 新慶州站", note: "記得先拿皇南餅！" },
-        { time: "19:13", s: "19:13", e: "19:47", kind: "move", tags: ["ktx"], title: "KTX 新慶州 → 釜山", note: "備選 19:37 班次", kr: { name: "신경주역 → 부산역", addr: "" } },
-        { time: "19:50", s: "19:50", e: "20:15", kind: "move", tags: ["subway"], title: "釜山站 → 西面" },
-        { time: "20:15", s: "20:15", e: "21:00", kind: "food", title: "晚餐：西面市場辣炒年糕街", kr: { name: "서면시장", addr: "부산 부산진구 서면로 56" } },
-        { time: "21:00", s: "21:00", e: "21:30", kind: "spot", tags: ["walk"], title: "DAISO 西面 2 號店", note: "開到 22:00；記得用 eSIM 送的 1,000 韓元券", kr: { name: "다이소 부산서면2호점", addr: "부산 부산진구 중앙대로 693" } },
-        { time: "21:30", s: "21:30", e: "22:00", kind: "spot", tags: ["walk"], title: "OLIVE YOUNG 西面 Town", kr: { name: "올리브영 서면 타운", addr: "부산 부산진구 부전동 165-3" } }
+        { time: "17:25", s: "17:25", e: "17:40", kind: "move", tags: ["walk"], title: "走路 → 東宮與月池", note: "約 15 分。我們在瞻星臺用 Uber 叫車沒人接（太近司機不接），用走的最快" },
+        { time: "17:40", s: "17:40", e: "18:25", kind: "must", title: "東宮與月池（看點燈）", note: "門票 3,000 韓元；17:40 日落後點燈，倒影最美", kr: { name: "동궁과 월지", addr: "경북 경주시 원화로 102" } },
+        { time: "18:25", s: "18:25", e: "18:50", kind: "move", tags: ["taxi"], title: "計程車 → 新慶州站", note: "我們從「동궁과월지 주차장1」用 Uber 叫，馬上有車，約 20 分，估價 14,400–19,200 韓元。記得先拿皇南餅", kr: { name: "경주역（신경주역）", addr: "" } },
+        { time: "19:13", s: "19:13", e: "19:47", kind: "move", tags: ["ktx"], title: "KTX 新慶州 → 釜山", note: "備選 19:37 班次", kr: { name: "경주역 → 부산역", addr: "" } },
+        { time: "19:50", s: "19:50", e: "20:15", kind: "move", tags: ["subway"], title: "地鐵 釜山站 → 西面", note: "1 號線，約 20 分" },
+        { time: "20:15", s: "20:15", e: "21:00", kind: "food", title: "晚餐：西面隨便吃", note: "西面美食街（서면 먹자골목）有阿姨路邊攤賣辣炒年糕、魚板、炸物；累了就便利商店。DAISO、Olive Young 那天太晚沒去，改到 Day 5" }
       ]
     },
     {
@@ -545,60 +546,78 @@ footer { margin-top: 40px; text-align: center; color: var(--ink-soft); font-size
     },
     {
       id: "day4", label: "Day 4", date: "10/27", dow: "二", ymd: "2026-10-27",
-      title: "海雲台・機張", sub: "龍宮寺、膠囊列車、夜遊艇",
+      title: "海雲台・機張", sub: "龍宮寺、海岸列車、膠囊列車、夜遊艇",
       art: "capsule",
-      warns: ["08:30 出門：13:30 膠囊列車要在青沙浦上車不能改，早上幾個點都在北邊的機張，晚出門會塞不下", "今天交通都用計程車（Kakao T 叫車），每段都寫在下面", "帶護照、釜山通行證、外套（晚上遊艇海風大）"],
+      warns: ["08:30 出門：13:30 膠囊列車要在青沙浦上車不能改，早上幾個點都在北邊的機張，晚出門會塞不下", "交通大多計程車（Kakao T / Uber），叫不到就去「택시 승차장」計程車招呼站排", "帶護照、釜山通行證、外套；早上打 1660-1122 確認遊艇有開"],
       items: [
         { time: "07:45", s: "07:45", e: "08:20", kind: "food", title: "早餐（飯店或便利商店）" },
         { time: "08:30", s: "08:30", e: "09:20", kind: "move", tags: ["taxi"], title: "計程車 → 海東龍宮寺", note: "約 45–50 分。龍宮寺 04:30 就開，旅行團大多 10 點後到，早去人少", kr: { name: "해동용궁사", addr: "부산 기장군 기장읍 용궁길 86" } },
-        { time: "09:20", s: "09:20", e: "10:15", kind: "must", title: "海東龍宮寺", note: "免費。進寺有一段階梯往下，回程要爬回來，慢慢走", kr: { name: "해동용궁사", addr: "부산 기장군 기장읍 용궁길 86" } },
+        { time: "09:20", s: "09:20", e: "10:15", kind: "must", title: "海東龍宮寺", note: "免費。入口有十二生肖石像，可以找自己的生肖拍照。主路「108 階梯」往下走到海邊，回程要爬回來，看海水觀音大佛還有另外的階梯，爸媽慢慢走。下過雨階梯會滑；宗教場所要小聲", kr: { name: "해동용궁사", addr: "부산 기장군 기장읍 용궁길 86" } },
         { time: "10:15", s: "10:15", e: "10:25", kind: "move", tags: ["taxi"], title: "計程車 → 釜山樂天世界", note: "約 10 分" },
-        { time: "10:25", s: "10:25", e: "11:15", kind: "spot", title: "釜山樂天世界（只看城堡、拍照）", note: "爸爸只是要去看一下，不排隊玩設施。城堡在園區裡，用通行證到售票處換票才能進", kr: { name: "롯데월드 어드벤처 부산", addr: "" } },
-        { time: "11:15", s: "11:15", e: "11:25", kind: "move", tags: ["walk"], title: "樂天世界 → 樂天 Outlet", note: "同一個園區，看 Naver 走路超過 10 分鐘就叫計程車" },
-        { time: "11:25", s: "11:25", e: "12:05", kind: "food", title: "樂天 Outlet 東釜山＋午餐", note: "美食街快速吃。12:05 一定要叫車去尾浦", kr: { name: "롯데프리미엄아울렛 동부산점", addr: "" } },
-        { time: "12:05", s: "12:05", e: "12:30", kind: "move", tags: ["taxi"], title: "計程車 → 藍線公園尾浦站", note: "約 20–25 分，跟司機說「미포정거장」（咪剖 宗溜將）", kr: { name: "해운대블루라인파크 미포정거장", addr: "" } },
-        { time: "12:35", s: "12:35", e: "13:00", kind: "move", tags: ["train"], title: "海岸列車 尾浦 → 青沙浦", note: "爸爸想坐的：先海岸列車去，再膠囊列車回。尾浦售票處用通行證換票；一小時約 3 班，車程約 15 分" },
-        { time: "13:00", s: "13:00", e: "13:30", kind: "spot", tags: ["walk"], title: "青沙浦踏石觀景台", note: "從青沙浦站走約 10 分，13:30 前回站", kr: { name: "청사포 다릿돌전망대", addr: "" } },
-        { time: "13:30", s: "13:30", e: "13:40", kind: "spot", title: "售票窗口補第 3 人票", note: "我們買的是 2 人座；一定要從青沙浦上車" },
-        { time: "13:40", s: "13:40", e: "14:10", kind: "must", title: "天空膠囊列車 青沙浦 → 尾浦", note: "已訂，13:30–14:00 之間上車，約 30 分" },
+        { time: "10:25", s: "10:25", e: "11:15", kind: "spot", title: "釜山樂天世界（只看城堡、拍照）", note: "爸爸只是要去看一下，不排隊玩設施。城堡在園區裡，用通行證到售票處換票才能進。整個園區都是戶外；遊行在 14:00、20:00，這時間看不到", kr: { name: "롯데월드 어드벤처 부산", addr: "" } },
+        { time: "11:15", s: "11:15", e: "11:25", kind: "move", tags: ["walk"], title: "走路 → 樂天 Outlet", note: "同一個園區，看 Naver 走路超過 10 分鐘就叫計程車" },
+        { time: "11:25", s: "11:25", e: "12:05", kind: "food", title: "樂天 Outlet 東釜山＋午餐", note: "美食街快速吃。☕ 爸媽可以在 Outlet 裡的咖啡廳坐著，你去逛。門口有計程車招呼站，12:05 一定要叫車", kr: { name: "롯데프리미엄아울렛 동부산점", addr: "" } },
+        { time: "12:05", s: "12:05", e: "12:30", kind: "move", tags: ["taxi"], title: "計程車 → 藍線公園尾浦站", note: "約 20–25 分。搭鐵路要轉車又走很多路，所以搭計程車。跟司機說「미포정거장」（咪剖 宗溜將）", kr: { name: "해운대블루라인파크 미포정거장", addr: "" } },
+        { time: "12:35", s: "12:35", e: "13:00", kind: "move", tags: ["train"], title: "海岸列車 尾浦 → 青沙浦", note: "爸爸想坐的：先海岸列車去，再膠囊列車回。尾浦售票處用通行證換票；一小時約 3 班，車程約 15 分，座位全部面向大海" },
+        { time: "13:00", s: "13:00", e: "13:25", kind: "food", tags: ["walk"], title: "☕ 休息：Cafe Rooftop 青沙浦", note: "從青沙浦站走約 3 分，11:00–22:00。頂樓看得到海、海岸列車和膠囊列車", kr: { name: "카페 루프탑 청사포", addr: "부산 해운대구 청사포로 139-4 4층" },
+          alts: [ { label: "備案（有空檔、體力夠才去）", title: "青沙浦踏石觀景台", note: "從站走約 10 分，海上的玻璃步道。13:30 前一定要回站補票", kr: { name: "청사포 다릿돌전망대", addr: "" } } ] },
+        { time: "13:30", s: "13:30", e: "13:40", kind: "spot", title: "售票窗口補第 3 人票", note: "我們買的是 2 人座，一台最多 4 人；一定要從青沙浦上車" },
+        { time: "13:40", s: "13:40", e: "14:10", kind: "must", title: "天空膠囊列車 青沙浦 → 尾浦", note: "已訂，13:30–14:00 之間上車，約 30 分。一台只載同一組人" },
         { time: "14:10", s: "14:10", e: "14:20", kind: "move", tags: ["walk"], title: "走路 → Busan X the SKY", note: "約 6 分" },
-        { time: "14:20", s: "14:20", e: "15:30", kind: "spot", title: "Busan X the SKY＋99 樓星巴克", note: "通行證換票；星巴克只能刷卡", kr: { name: "부산엑스더스카이", addr: "부산 해운대구 달맞이길 30" } },
+        { time: "14:20", s: "14:20", e: "15:30", kind: "spot", title: "Busan X the SKY 觀景台", note: "通行證換票，98–100 樓。必拍 100 樓透明玻璃地板。☕ 休息：99 樓星巴克，要有觀景台票才能上去，只能刷卡", kr: { name: "부산엑스더스카이", addr: "부산 해운대구 달맞이길 30" } },
         { time: "15:30", s: "15:30", e: "15:45", kind: "move", tags: ["taxi"], title: "計程車 → MUSEUM 1", note: "約 15 分" },
-        { time: "15:45", s: "15:45", e: "17:30", kind: "spot", title: "MUSEUM 1 媒體藝術館", note: "通行證免費；室內有座位，當下午休息", kr: { name: "뮤지엄원", addr: "부산 해운대구 센텀서로 20" } },
-        { time: "17:30", s: "17:30", e: "19:15", kind: "food", tags: ["walk"], title: "晚餐（簡單吃）：新世界百貨美食街", note: "走路 3 分。炸雞要等遊艇後才買，到飯店已 22:00，先吃一點才不會餓", kr: { name: "신세계백화점 센텀시티점", addr: "부산 해운대구 센텀남대로 35" } },
-        { time: "19:20", s: "19:20", e: "19:45", kind: "move", tags: ["taxi"], title: "計程車 → 龍湖灣遊覽船碼頭", note: "約 20–25 分。碼頭在南區不在海雲台，20:10 前到", kr: { name: "용호만유람선터미널", addr: "부산 남구 분포로 101" } },
-        { time: "20:30", s: "20:30", e: "21:20", kind: "must", title: "鑽石灣夜間遊艇", note: "已訂，帶護照＋通行證，預約頁先截圖" },
-        { time: "21:20", s: "21:20", e: "21:50", kind: "move", tags: ["taxi"], title: "計程車 → 西面", note: "約 30 分" },
-        { time: "21:50", s: "21:50", e: "22:30", kind: "food", title: "宵夜：炸雞外帶回飯店", note: "Happy 炸雞開到 02:00；也可以買橋村、bhc（分店時間看 Naver）。外帶說「포장이요」（剖將 一呦）", kr: { name: "해피통닭 서면본점", addr: "부산 부산진구 중앙대로680번가길 70" } }
+        { time: "15:45", s: "15:45", e: "17:15", kind: "spot", title: "MUSEUM 1 媒體藝術館", note: "通行證免費，平日最後入場 18:00。室內有座位，當下午休息", kr: { name: "뮤지엄원", addr: "부산 해운대구 센텀서로 20" } },
+        { time: "17:15", s: "17:15", e: "17:40", kind: "move", tags: ["taxi"], title: "計程車 → 龍湖洞 W Square", note: "約 20–25 分。W Square 跟遊艇碼頭同一條路，先過去吃東西、休息", kr: { name: "W스퀘어", addr: "부산 남구 분포로 145" } },
+        { time: "17:40", s: "17:40", e: "19:40", kind: "food", title: "簡單吃＋休息：OPS 麵包店 W Square 店", note: "釜山很有名的麵包店，有早午餐（千層麵、義大利麵、三明治）。露台看得到廣安大橋夜景。10:00–21:00，休息日不確定先看 Naver。炸雞要 22:00 才吃，這裡先墊胃", kr: { name: "옵스 드마히니 W스퀘어점", addr: "부산 남구 분포로 145 W스퀘어 2층" },
+          alts: [ { label: "備案（全年無休）", title: "Sorry Not Sorry 麵包咖啡", note: "10:30–22:00，落地窗看廣安大橋", kr: { name: "쏘리낫쏘리 베이크샵", addr: "부산 남구 분포로 66-33" } }, { label: "晚餐備案（還在 Centum 時）", title: "新世界百貨 Centum City 美食街", note: "MUSEUM 1 走路 3 分，吃完再搭計程車去碼頭約 20–25 分", kr: { name: "신세계백화점 센텀시티점", addr: "부산 해운대구 센텀남대로 35" } } ] },
+        { time: "19:40", s: "19:40", e: "19:55", kind: "move", tags: ["walk"], title: "走路 → 龍湖灣遊覽船碼頭", note: "同一條分浦路，145 號走到 101 號，約 5–10 分。20:00 前到，開船前 30 分要填乘船申報書", kr: { name: "용호만유람선터미널", addr: "부산 남구 분포로 101" } },
+        { time: "20:30", s: "20:30", e: "21:20", kind: "must", title: "鑽石灣夜間遊艇", note: "地址已三方確認：분포로 101 龍湖灣遊覽船碼頭 1 樓（舊資料的 용호동 176-27 不要用）。電話 051-200-0002。帶三人護照＋通行證＋預約截圖。不用在大樓售票處排，直接問工作人員「다이아몬드베이 어디예요?」。上船穿救生衣、少看手機免得暈船、海上很冷。航線：廣安大橋 → 누리마루 → 海雲台" },
+        { time: "21:20", s: "21:20", e: "21:50", kind: "move", tags: ["taxi"], title: "計程車 → 西面", note: "約 30 分，可以直接請司機開到炸雞店" },
+        { time: "21:50", s: "21:50", e: "22:30", kind: "food", title: "宵夜：bhc 炸雞外帶回飯店", note: "西面 bhc 分店的地址和營業時間我查不到可靠資料，用 Naver 搜「bhc 서면」確認。外帶說「포장이요」（剖將 一呦）", kr: { name: "bhc치킨 서면", addr: "" },
+          alts: [ { label: "備案", title: "橋村炸雞（12:00–24:00）", note: "在飯店北邊約 500 公尺，051-808-9981", kr: { name: "교촌치킨", addr: "부산 부산진구 중앙대로 745-1" } }, { label: "再晚的備案", title: "Happy 炸雞（開到 02:00）", kr: { name: "해피통닭 서면본점", addr: "부산 부산진구 중앙대로680번가길 70" } } ] }
       ]
     },
     {
       id: "day5", label: "Day 5", date: "10/28", dow: "三", ymd: "2026-10-28",
-      title: "最後一天，回家", sub: "退房、寄行李、晚上起飛",
-      art: "suitcase", soon: true,
-      fixed: [
-        { time: "17:30", title: "抵達金海機場", note: "提早到報到" },
-        { time: "19:50", title: "CI187 釜山 → 桃園", note: "21:30 抵達桃園（台灣時間）" }
-      ],
-      maybe: ["退房後行李寄放飯店", "白天去還沒去過的區域"]
+      title: "市場、採買、回家", sub: "全部在飯店附近，最後計程車直達機場",
+      art: "suitcase",
+      warns: ["新鮮水果不能帶回台灣（罰 3,000–15,000 元），麝香葡萄在韓國吃完", "先問飯店退房時間，行李寄放到下午", "為什麼不去沙上：帶行李箱和採買還要轉兩次車，從飯店直接搭計程車到機場最輕鬆"],
+      items: [
+        { time: "08:00", s: "08:00", e: "08:45", kind: "food", title: "早餐（飯店或便利商店）" },
+        { time: "08:45", s: "08:45", e: "09:00", kind: "move", tags: ["walk"], title: "走路 → 釜田市場", note: "約 10–15 分，就在地鐵 1 號線釜田站旁" },
+        { time: "09:00", s: "09:00", e: "10:30", kind: "must", title: "釜田市場（爸爸想逛的傳統市場）", note: "釜山最大的傳統市場，約 07:00–19:00。有水果、海苔、乾貨，旁邊還有人蔘市場。麝香葡萄（샤인머스캣，篩印 抹斯開）正產季、不貴；水蜜桃（복숭아，剖蘇阿）6–9 月產，可能買不到。帶現金", kr: { name: "부전시장", addr: "부산 부산진구 중앙대로755번길 21" } },
+        { time: "10:30", s: "10:30", e: "10:45", kind: "move", tags: ["walk"], title: "走路 → 飯店", note: "約 10–15 分" },
+        { time: "10:45", s: "10:45", e: "11:30", kind: "spot", title: "飯店：整理、退房、寄放行李", note: "水果先放房間吃，或帶在身上當點心" },
+        { time: "11:30", s: "11:30", e: "12:15", kind: "spot", tags: ["walk"], title: "DAISO 西面 2 號店", note: "飯店走路 2 分，10:00–22:00。可退稅（帶護照）。店裡沒電梯只有樓梯。eSIM 送的 1,000 韓元券先在 skroaming.com 兌換", kr: { name: "다이소 부산서면2호점", addr: "부산 부산진구 중앙대로 693" } },
+        { time: "12:15", s: "12:15", e: "12:20", kind: "move", tags: ["walk"], title: "走路 → Olive Young", note: "約 5 分" },
+        { time: "12:20", s: "12:20", e: "13:00", kind: "spot", title: "OLIVE YOUNG 西面 Town", note: "10:00–23:00，全年無休。當場退稅（帶護照）", kr: { name: "올리브영 서면타운", addr: "부산 부산진구 중앙대로 704 동보프라자 1층" } },
+        { time: "13:00", s: "13:00", e: "13:15", kind: "move", tags: ["taxi"], title: "計程車 → Traders 大賣場", note: "約 10 分。搭地鐵要走很多路所以搭計程車；距離短 App 可能沒人接，路邊招空車（빈차 紅燈）", kr: { name: "트레이더스 홀세일 클럽 서면점", addr: "부산 부산진구 시민공원로 31" } },
+        { time: "13:15", s: "13:15", e: "15:30", kind: "food", title: "Traders 大賣場：午餐＋採買", note: "10:00–23:00，週三有開（釜山大賣場第 2、4 個週一公休）。不用會員卡也能買。裡面有美食區可以吃午餐。大包裝零食、泡麵、海苔分送最划算。西面 Homeplus 官網顯示已停業，不要去", kr: { name: "트레이더스 홀세일 클럽 서면점", addr: "부산 부산진구 시민공원로 31" } },
+        { time: "15:30", s: "15:30", e: "15:45", kind: "move", tags: ["taxi"], title: "計程車 → 飯店", note: "東西多，大賣場門口通常有計程車" },
+        { time: "15:45", s: "15:45", e: "16:45", kind: "spot", title: "飯店：拿行李、打包", note: "液體放托運；肉製品、新鮮水果不能帶回台灣" },
+        { time: "16:45", s: "16:45", e: "17:30", kind: "move", tags: ["taxi"], title: "計程車 → 金海機場 國際線", note: "約 35–45 分，不用轉車。跟司機說「김해공항 국제선」（kim 嘿 空航 庫結松）", kr: { name: "김해국제공항 국제선", addr: "" } },
+        { time: "17:30", s: "17:30", e: "19:20", kind: "spot", title: "報到、退稅、出境", note: "退稅先在報到前辦。安檢出境有時排很久，報到完就進去" },
+        { time: "19:50", s: "19:50", e: "22:30", kind: "move", tags: ["plane"], title: "CI187 釜山 → 桃園", note: "21:30 抵達桃園（台灣時間）" }
+      ]
     }
   ];
 
   var TAGS = {
     subway: ["地鐵", "t-subway"], ktx: ["KTX", "t-ktx"], taxi: ["計程車", "t-taxi"],
-    plane: ["飛機", "t-plane"], car: ["開車", "t-car"], walk: ["步行", "t-walk"], train: ["海岸列車", "t-subway"]
+    plane: ["飛機", "t-plane"], car: ["開車", "t-car"], walk: ["步行", "t-walk"], train: ["海岸列車", "t-subway"], bus: ["公車", "t-subway"]
   };
 
   var TODOS = [
-    { id: "ktx", text: "買 KTX 去回程票", sub: "10/25 去程 09:30、回程 19:13 附近；出發站是 부산역" },
-    { id: "umb", text: "慶州那天帶傘", sub: "下午降雨機率 60%" },
-    { id: "esim", text: "eSIM 線上護照認證＋兌換 DAISO 券", sub: "連上 SKT 訊號後到 skroaming.com 兌換" },
-    { id: "bf", text: "問 YTT 飯店早餐幾點開" },
-    { id: "pass", text: "Day 3 在松島纜車開通釜山通行證", sub: "48 小時，可以用到 10/28 上午" },
+    { id: "esim", text: "eSIM 線上護照認證＋兌換 DAISO 券", sub: "連上 SKT 訊號後到 skroaming.com 兌換，兌換後 10 天內要用" },
+    { id: "pass", text: "Day 3 在松島纜車開通釜山通行證", sub: "48 小時，可以用到 10/28 中午" },
     { id: "maho", text: "Naver 確認 마호우가 週一有開、下午有沒有休息" },
-    { id: "mart", text: "大賣場採買排週二或週三", sub: "釜山大賣場每月第 2、4 個週一公休，10/26 沒開" },
-    { id: "cash", text: "準備韓幣現金", sub: "市場、甘川洞地圖、路邊小吃" },
-    { id: "shoe", text: "穿好走的鞋", sub: "甘川洞、白淺灘樓梯很多" }
+    { id: "yacht", text: "10/27 早上打 1660-1122 確認遊艇有開", sub: "天候不好或人太少會停航；20:00 前到碼頭" },
+    { id: "bhc", text: "Naver 搜「bhc 서면」確認營業時間", sub: "備案：橋村 중앙대로 745-1（12:00–24:00）" },
+    { id: "ops", text: "Naver 確認 OPS W Square 店 10/27 有開" },
+    { id: "checkout", text: "問 YTT 飯店退房時間、行李寄放", sub: "10/28 退房後寄到下午 15:45" },
+    { id: "fruit", text: "水果在韓國吃完", sub: "新鮮水果不能帶回台灣，罰 3,000–15,000 元" },
+    { id: "cash", text: "準備韓幣現金", sub: "市場、路邊攤、甘川洞地圖" },
+    { id: "shoe", text: "穿好走的鞋", sub: "甘川洞、白淺灘、龍宮寺樓梯都很多" }
   ];
 
   // ---------- 工具 ----------
@@ -687,9 +706,10 @@ footer { margin-top: 40px; text-align: center; color: var(--ink-soft); font-size
     train: { name: "海岸列車", svg: '<svg viewBox="0 0 38 24" aria-hidden="true"><rect x="3" y="4" width="32" height="14" rx="4" fill="#F6D27A" stroke="#3E3A39" stroke-width="2.5"/><rect x="3" y="12" width="32" height="6" rx="2" fill="#F2A497" stroke="#3E3A39" stroke-width="2.5"/><rect x="7" y="7" width="10" height="4" rx="1" fill="#FFFFFF" stroke="#3E3A39" stroke-width="2"/><rect x="21" y="7" width="10" height="4" rx="1" fill="#FFFFFF" stroke="#3E3A39" stroke-width="2"/><circle cx="10" cy="20.5" r="2.5" fill="#3E3A39"/><circle cx="28" cy="20.5" r="2.5" fill="#3E3A39"/></svg>' },
     plane: { name: "飛機", svg: '<svg viewBox="0 0 38 24" aria-hidden="true"><path d="M3 14 L28 9 Q35 8 36 12 Q35 15 28 15 L17 16 L11 23 L7 23 L9 16 L4 17 Z" fill="#FFFFFF" stroke="#3E3A39" stroke-width="2.5" stroke-linejoin="round"/><path d="M16 11 L12 3 L16 3 L22 10" fill="#A8D3E6" stroke="#3E3A39" stroke-width="2.5" stroke-linejoin="round"/></svg>' },
     car: { name: "開車", svg: '<svg viewBox="0 0 38 24" aria-hidden="true"><path d="M4 18 L4 12 Q5 7 10 6.5 L27 6.5 Q32 7 34 12 L34 18 Z" fill="#B9DAA5" stroke="#3E3A39" stroke-width="2.5" stroke-linejoin="round"/><path d="M11 7 L13 11.5 L25 11.5 L27 7" fill="#FFFFFF" stroke="#3E3A39" stroke-width="2" stroke-linejoin="round"/><circle cx="11" cy="19" r="3.5" fill="#3E3A39"/><circle cx="27" cy="19" r="3.5" fill="#3E3A39"/></svg>' },
+    bus: { name: "公車", svg: '<svg viewBox="0 0 38 24" aria-hidden="true"><rect x="3" y="2.5" width="32" height="16" rx="4" fill="#B9DAA5" stroke="#3E3A39" stroke-width="2.5"/><rect x="6.5" y="6" width="6" height="5" rx="1" fill="#FFFFFF" stroke="#3E3A39" stroke-width="2"/><rect x="15" y="6" width="6" height="5" rx="1" fill="#FFFFFF" stroke="#3E3A39" stroke-width="2"/><rect x="23.5" y="6" width="8" height="9" rx="1" fill="#FFFFFF" stroke="#3E3A39" stroke-width="2"/><circle cx="10" cy="20" r="3" fill="#3E3A39"/><circle cx="28" cy="20" r="3" fill="#3E3A39"/></svg>' },
     walk: { name: "走路", svg: '<svg viewBox="0 0 38 24" aria-hidden="true"><ellipse cx="11" cy="15" rx="4" ry="6" fill="#B9DAA5" stroke="#3E3A39" stroke-width="2.2"/><ellipse cx="26" cy="9" rx="4" ry="6" fill="#B9DAA5" stroke="#3E3A39" stroke-width="2.2"/><circle cx="8" cy="7" r="1.6" fill="#3E3A39"/><circle cx="23" cy="1.8" r="1.4" fill="#3E3A39"/></svg>' }
   };
-  var MODE_ORDER = ["taxi", "subway", "ktx", "train", "plane", "car", "walk"];
+  var MODE_ORDER = ["taxi", "bus", "subway", "ktx", "train", "plane", "car", "walk"];
   function modeOf(it) {
     var t = (it.tags || []).filter(function (x) { return MODE[x]; })[0];
     return t || "walk";
