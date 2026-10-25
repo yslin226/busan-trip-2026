@@ -393,13 +393,13 @@ footer { margin-top: 40px; text-align: center; color: var(--ink-soft); font-size
     </div>
     <div class="booked">
       <div class="card"><span class="sw" style="background:var(--water)"></span><div><strong>釜山通行證 48 小時（3 人）</strong><p>Day 3 搭松島纜車時第一次使用，可以一路用到 10/28 上午</p></div></div>
-      <div class="card"><span class="sw" style="background:var(--coral)"></span><div><strong>天空膠囊列車・10/27 13:30</strong><p>青沙浦出發 → 尾浦，第 3 人到現場窗口補差價</p></div></div>
+      <div class="card"><span class="sw" style="background:var(--coral)"></span><div><strong>天空膠囊列車・10/27 13:30–14:00</strong><p>青沙浦出發 → 尾浦，第 3 人到現場窗口補差價</p></div></div>
       <div class="card"><span class="sw" style="background:var(--yellow)"></span><div><strong>鑽石灣夜間遊艇・10/27 20:30</strong><p>龍湖灣遊覽船碼頭上船，帶護照、通行證和外套</p></div></div>
       <div class="card"><span class="sw" style="background:var(--bamboo)"></span><div><strong>韓國旅遊諮詢熱線 1330</strong><p>24 小時，有中文服務，迷路或要翻譯可以打</p></div></div>
     </div>
   </section>
 
-  <footer>Day 4、Day 5 敬請期待・資料來源：Notion 行程規劃表</footer>
+  <footer>Day 5 敬請期待・資料來源：Notion 行程規劃表</footer>
 </main>
 
 <div class="toast" id="toast" role="status"></div>
@@ -490,12 +490,31 @@ footer { margin-top: 40px; text-align: center; color: var(--ink-soft); font-size
     {
       id: "day4", label: "Day 4", date: "10/27", dow: "二", ymd: "2026-10-27",
       title: "海雲台・機張", sub: "龍宮寺、膠囊列車、夜遊艇",
-      art: "capsule", soon: true,
-      fixed: [
-        { time: "13:30", title: "天空膠囊列車（青沙浦 → 尾浦）", note: "13:30–14:00 之間上車" },
-        { time: "20:30", title: "鑽石灣夜間遊艇", note: "龍湖灣遊覽船碼頭，20:10 前到" }
-      ],
-      maybe: ["海東龍宮寺", "Skyline Luge", "釜山樂天世界", "青沙浦踏石觀景台", "Busan X the SKY", "MUSEUM 1"]
+      art: "capsule",
+      warns: ["08:30 出門：13:30 膠囊列車要在青沙浦上車不能改，早上幾個點都在北邊的機張，晚出門會塞不下", "今天交通都用計程車（Kakao T 叫車），每段都寫在下面", "帶護照、釜山通行證、外套（晚上遊艇海風大）"],
+      items: [
+        { time: "07:45", s: "07:45", e: "08:20", kind: "food", title: "早餐（飯店或便利商店）" },
+        { time: "08:30", s: "08:30", e: "09:20", kind: "move", tags: ["taxi"], title: "計程車 → 海東龍宮寺", note: "約 45–50 分。龍宮寺 04:30 就開，旅行團大多 10 點後到，早去人少", kr: { name: "해동용궁사", addr: "부산 기장군 기장읍 용궁길 86" } },
+        { time: "09:20", s: "09:20", e: "10:15", kind: "must", title: "海東龍宮寺", note: "免費。進寺有一段階梯往下，回程要爬回來，慢慢走", kr: { name: "해동용궁사", addr: "부산 기장군 기장읍 용궁길 86" } },
+        { time: "10:15", s: "10:15", e: "10:25", kind: "move", tags: ["taxi"], title: "計程車 → 釜山樂天世界", note: "約 10 分" },
+        { time: "10:25", s: "10:25", e: "11:15", kind: "spot", title: "釜山樂天世界（只看城堡、拍照）", note: "爸爸只是要去看一下，不排隊玩設施。城堡在園區裡，用通行證到售票處換票才能進", kr: { name: "롯데월드 어드벤처 부산", addr: "" } },
+        { time: "11:15", s: "11:15", e: "11:25", kind: "move", tags: ["walk"], title: "樂天世界 → 樂天 Outlet", note: "同一個園區，看 Naver 走路超過 10 分鐘就叫計程車" },
+        { time: "11:25", s: "11:25", e: "12:05", kind: "food", title: "樂天 Outlet 東釜山＋午餐", note: "美食街快速吃。12:05 一定要叫車去尾浦", kr: { name: "롯데프리미엄아울렛 동부산점", addr: "" } },
+        { time: "12:05", s: "12:05", e: "12:30", kind: "move", tags: ["taxi"], title: "計程車 → 藍線公園尾浦站", note: "約 20–25 分，跟司機說「미포정거장」（咪剖 宗溜將）", kr: { name: "해운대블루라인파크 미포정거장", addr: "" } },
+        { time: "12:35", s: "12:35", e: "13:00", kind: "move", tags: ["train"], title: "海岸列車 尾浦 → 青沙浦", note: "爸爸想坐的：先海岸列車去，再膠囊列車回。尾浦售票處用通行證換票；一小時約 3 班，車程約 15 分" },
+        { time: "13:00", s: "13:00", e: "13:30", kind: "spot", tags: ["walk"], title: "青沙浦踏石觀景台", note: "從青沙浦站走約 10 分，13:30 前回站", kr: { name: "청사포 다릿돌전망대", addr: "" } },
+        { time: "13:30", s: "13:30", e: "13:40", kind: "spot", title: "售票窗口補第 3 人票", note: "我們買的是 2 人座；一定要從青沙浦上車" },
+        { time: "13:40", s: "13:40", e: "14:10", kind: "must", title: "天空膠囊列車 青沙浦 → 尾浦", note: "已訂，13:30–14:00 之間上車，約 30 分" },
+        { time: "14:10", s: "14:10", e: "14:20", kind: "move", tags: ["walk"], title: "走路 → Busan X the SKY", note: "約 6 分" },
+        { time: "14:20", s: "14:20", e: "15:30", kind: "spot", title: "Busan X the SKY＋99 樓星巴克", note: "通行證換票；星巴克只能刷卡", kr: { name: "부산엑스더스카이", addr: "부산 해운대구 달맞이길 30" } },
+        { time: "15:30", s: "15:30", e: "15:45", kind: "move", tags: ["taxi"], title: "計程車 → MUSEUM 1", note: "約 15 分" },
+        { time: "15:45", s: "15:45", e: "17:30", kind: "spot", title: "MUSEUM 1 媒體藝術館", note: "通行證免費；室內有座位，當下午休息", kr: { name: "뮤지엄원", addr: "부산 해운대구 센텀서로 20" } },
+        { time: "17:30", s: "17:30", e: "19:15", kind: "food", tags: ["walk"], title: "晚餐（簡單吃）：新世界百貨美食街", note: "走路 3 分。炸雞要等遊艇後才買，到飯店已 22:00，先吃一點才不會餓", kr: { name: "신세계백화점 센텀시티점", addr: "부산 해운대구 센텀남대로 35" } },
+        { time: "19:20", s: "19:20", e: "19:45", kind: "move", tags: ["taxi"], title: "計程車 → 龍湖灣遊覽船碼頭", note: "約 20–25 分。碼頭在南區不在海雲台，20:10 前到", kr: { name: "용호만유람선터미널", addr: "부산 남구 분포로 101" } },
+        { time: "20:30", s: "20:30", e: "21:20", kind: "must", title: "鑽石灣夜間遊艇", note: "已訂，帶護照＋通行證，預約頁先截圖" },
+        { time: "21:20", s: "21:20", e: "21:50", kind: "move", tags: ["taxi"], title: "計程車 → 西面", note: "約 30 分" },
+        { time: "21:50", s: "21:50", e: "22:30", kind: "food", title: "宵夜：炸雞外帶回飯店", note: "Happy 炸雞開到 02:00；也可以買橋村、bhc（分店時間看 Naver）。外帶說「포장이요」（剖將 一呦）", kr: { name: "해피통닭 서면본점", addr: "부산 부산진구 중앙대로680번가길 70" } }
+      ]
     },
     {
       id: "day5", label: "Day 5", date: "10/28", dow: "三", ymd: "2026-10-28",
@@ -511,7 +530,7 @@ footer { margin-top: 40px; text-align: center; color: var(--ink-soft); font-size
 
   var TAGS = {
     subway: ["地鐵", "t-subway"], ktx: ["KTX", "t-ktx"], taxi: ["計程車", "t-taxi"],
-    plane: ["飛機", "t-plane"], car: ["開車", "t-car"], walk: ["步行", "t-walk"]
+    plane: ["飛機", "t-plane"], car: ["開車", "t-car"], walk: ["步行", "t-walk"], train: ["海岸列車", "t-subway"]
   };
 
   var TODOS = [
