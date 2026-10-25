@@ -170,6 +170,58 @@ h2 .dot { width: 14px; height: 14px; border: var(--line); border-radius: 50%; fl
   padding: 12px 14px; min-width: 0;
 }
 .item.move .stop { background: transparent; border-style: dashed; border-width: 2px; padding-block: 8px; }
+/* 交通段 */
+.leg {
+  --leg-c: var(--bamboo); --leg-bg: var(--bamboo-pale);
+  border: 2px dashed var(--ink); border-radius: var(--r-mid); background: var(--leg-bg);
+  padding: 10px 12px 8px; min-width: 0;
+}
+.leg-taxi { --leg-c: var(--yellow); --leg-bg: var(--yellow-pale); }
+.leg-subway { --leg-c: var(--water); --leg-bg: var(--water-pale); }
+.leg-ktx { --leg-c: var(--coral); --leg-bg: var(--coral-pale); }
+.leg-train { --leg-c: var(--bamboo); --leg-bg: var(--bamboo-pale); }
+.leg-plane { --leg-c: var(--water); --leg-bg: var(--water-pale); }
+.leg-car { --leg-c: var(--bamboo); --leg-bg: var(--bamboo-pale); }
+.leg-walk { --leg-c: var(--white); --leg-bg: var(--paper); }
+.leg-top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.leg-mode {
+  display: inline-flex; align-items: center; gap: 4px; flex: none;
+  font-size: 13px; line-height: 1.5; padding: 1px 9px 1px 6px;
+  border: 2px solid var(--ink); border-radius: 999px; background: var(--leg-c);
+}
+.leg-mode svg { width: 24px; height: 15px; display: block; }
+.leg-title { font-size: 15px; min-width: 0; }
+.leg-min {
+  margin-left: auto; font-size: 13px; white-space: nowrap; font-variant-numeric: tabular-nums;
+  background: var(--white); border: 2px solid var(--ink); border-radius: 8px; padding: 0 6px;
+}
+.leg-track { position: relative; height: 24px; margin: 6px 4px 2px 2px; }
+.leg-track::before {
+  content: ""; position: absolute; left: 0; right: 10px; top: 50%;
+  border-top: 3px dotted var(--ink); opacity: .35;
+}
+.leg-track::after {
+  content: ""; position: absolute; right: 0; top: 50%; width: 12px; height: 12px; margin-top: -6px;
+  border: 3px solid var(--ink); border-radius: 50%; background: var(--leg-c);
+}
+.leg-runner {
+  position: absolute; top: 0; left: 0; width: 38px; height: 24px;
+  animation: run 4.2s ease-in-out infinite alternate;
+}
+.leg-runner svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.leg-walk .leg-runner { animation-duration: 7s; }
+.leg-walk .leg-runner svg { animation: step .5s steps(2) infinite; }
+.leg-taxi .leg-runner svg, .leg-car .leg-runner svg { animation: bump .45s ease-in-out infinite; }
+.leg-plane .leg-runner svg { animation: float 2.4s ease-in-out infinite; }
+@keyframes run { from { left: 0; } to { left: calc(100% - 52px); } }
+@keyframes step { 0% { transform: translateY(0); } 100% { transform: translateY(-2px); } }
+@keyframes bump { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-1.5px); } }
+.leg .note { margin-top: 2px; }
+.leg-sum {
+  margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 13px; color: var(--ink-soft);
+}
+.leg-sum .leg-mode { color: var(--ink); }
+.leg-sum .leg-mode b { font-weight: 400; font-variant-numeric: tabular-nums; }
 .item.now .stop { box-shadow: 5px 5px 0 var(--yellow); }
 .stop-title { font-size: 17px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
 .tag { font-size: 12px; padding: 0 8px; border: 2px solid var(--ink); border-radius: 999px; line-height: 1.6; white-space: nowrap; }
@@ -628,6 +680,27 @@ footer { margin-top: 40px; text-align: center; color: var(--ink-soft); font-size
     return '<div class="kr"><div class="kr-text"><b>' + esc(kr.name) + "</b>" + (kr.addr ? esc(kr.addr) : "") +
       '</div><button class="copy" type="button" data-copy="' + esc(copyText) + '" aria-label="複製 ' + esc(kr.name) + '">複製</button></div>';
   }
+  var MODE = {
+    taxi: { name: "計程車", svg: '<svg viewBox="0 0 38 24" aria-hidden="true"><rect x="13" y="1.5" width="10" height="4" rx="1.5" fill="#FFFFFF" stroke="#3E3A39" stroke-width="2"/><path d="M4 18 L4 12 Q5 8 10 7.5 L27 7.5 Q32 8 34 12 L34 18 Z" fill="#F6D27A" stroke="#3E3A39" stroke-width="2.5" stroke-linejoin="round"/><path d="M11 8 L13 12 L25 12 L27 8" fill="#FFFFFF" stroke="#3E3A39" stroke-width="2" stroke-linejoin="round"/><circle cx="11" cy="19" r="3.5" fill="#3E3A39"/><circle cx="27" cy="19" r="3.5" fill="#3E3A39"/></svg>' },
+    subway: { name: "地鐵", svg: '<svg viewBox="0 0 38 24" aria-hidden="true"><rect x="3" y="3" width="32" height="15" rx="6" fill="#A8D3E6" stroke="#3E3A39" stroke-width="2.5"/><rect x="7" y="6.5" width="7" height="5" rx="1.5" fill="#FFFFFF" stroke="#3E3A39" stroke-width="2"/><rect x="16" y="6.5" width="7" height="5" rx="1.5" fill="#FFFFFF" stroke="#3E3A39" stroke-width="2"/><rect x="25" y="6.5" width="6" height="5" rx="1.5" fill="#FFFFFF" stroke="#3E3A39" stroke-width="2"/><circle cx="10" cy="20.5" r="2.5" fill="#3E3A39"/><circle cx="28" cy="20.5" r="2.5" fill="#3E3A39"/></svg>' },
+    ktx: { name: "KTX", svg: '<svg viewBox="0 0 38 24" aria-hidden="true"><path d="M2 18 L2 7 Q2 4 6 4 L24 4 Q34 5 36 18 Z" fill="#F2A497" stroke="#3E3A39" stroke-width="2.5" stroke-linejoin="round"/><path d="M24 7 Q30 8 32 13 L24 13 Z" fill="#FFFFFF" stroke="#3E3A39" stroke-width="2" stroke-linejoin="round"/><rect x="6" y="8" width="13" height="5" rx="1.5" fill="#FFFFFF" stroke="#3E3A39" stroke-width="2"/><circle cx="9" cy="20.5" r="2.5" fill="#3E3A39"/><circle cx="25" cy="20.5" r="2.5" fill="#3E3A39"/></svg>' },
+    train: { name: "海岸列車", svg: '<svg viewBox="0 0 38 24" aria-hidden="true"><rect x="3" y="4" width="32" height="14" rx="4" fill="#F6D27A" stroke="#3E3A39" stroke-width="2.5"/><rect x="3" y="12" width="32" height="6" rx="2" fill="#F2A497" stroke="#3E3A39" stroke-width="2.5"/><rect x="7" y="7" width="10" height="4" rx="1" fill="#FFFFFF" stroke="#3E3A39" stroke-width="2"/><rect x="21" y="7" width="10" height="4" rx="1" fill="#FFFFFF" stroke="#3E3A39" stroke-width="2"/><circle cx="10" cy="20.5" r="2.5" fill="#3E3A39"/><circle cx="28" cy="20.5" r="2.5" fill="#3E3A39"/></svg>' },
+    plane: { name: "飛機", svg: '<svg viewBox="0 0 38 24" aria-hidden="true"><path d="M3 14 L28 9 Q35 8 36 12 Q35 15 28 15 L17 16 L11 23 L7 23 L9 16 L4 17 Z" fill="#FFFFFF" stroke="#3E3A39" stroke-width="2.5" stroke-linejoin="round"/><path d="M16 11 L12 3 L16 3 L22 10" fill="#A8D3E6" stroke="#3E3A39" stroke-width="2.5" stroke-linejoin="round"/></svg>' },
+    car: { name: "開車", svg: '<svg viewBox="0 0 38 24" aria-hidden="true"><path d="M4 18 L4 12 Q5 7 10 6.5 L27 6.5 Q32 7 34 12 L34 18 Z" fill="#B9DAA5" stroke="#3E3A39" stroke-width="2.5" stroke-linejoin="round"/><path d="M11 7 L13 11.5 L25 11.5 L27 7" fill="#FFFFFF" stroke="#3E3A39" stroke-width="2" stroke-linejoin="round"/><circle cx="11" cy="19" r="3.5" fill="#3E3A39"/><circle cx="27" cy="19" r="3.5" fill="#3E3A39"/></svg>' },
+    walk: { name: "走路", svg: '<svg viewBox="0 0 38 24" aria-hidden="true"><ellipse cx="11" cy="15" rx="4" ry="6" fill="#B9DAA5" stroke="#3E3A39" stroke-width="2.2"/><ellipse cx="26" cy="9" rx="4" ry="6" fill="#B9DAA5" stroke="#3E3A39" stroke-width="2.2"/><circle cx="8" cy="7" r="1.6" fill="#3E3A39"/><circle cx="23" cy="1.8" r="1.4" fill="#3E3A39"/></svg>' }
+  };
+  var MODE_ORDER = ["taxi", "subway", "ktx", "train", "plane", "car", "walk"];
+  function modeOf(it) {
+    var t = (it.tags || []).filter(function (x) { return MODE[x]; })[0];
+    return t || "walk";
+  }
+  function minsOf(it) {
+    var m = toMin(it.e) - toMin(it.s);
+    return m > 0 ? m : 0;
+  }
+  function modePill(m, extra) {
+    return '<span class="leg-mode">' + MODE[m].svg + "<span>" + MODE[m].name + (extra || "") + "</span></span>";
+  }
   function renderTabs() {
     var k = kstNow();
     document.getElementById("dayTabs").innerHTML = DAYS.map(function (d, i) {
@@ -654,6 +727,10 @@ footer { margin-top: 40px; text-align: center; color: var(--ink-soft); font-size
     if (d.warns && d.warns.length) {
       html += '<div class="warn">' + d.warns.map(function (w) { return "<div>☂︎ " + esc(w) + "</div>"; }).join("") + "</div>";
     }
+    var cnt = {};
+    d.items.forEach(function (it) { if (it.kind === "move") { var m = modeOf(it); cnt[m] = (cnt[m] || 0) + 1; } });
+    var sum = MODE_ORDER.filter(function (m) { return cnt[m]; }).map(function (m) { return modePill(m, " <b>× " + cnt[m] + "</b>"); }).join("");
+    if (sum) html += '<div class="leg-sum"><span>今天的交通</span>' + sum + "</div>";
     html += '<ol class="timeline">';
     d.items.forEach(function (it) {
       var cls = "item";
@@ -671,6 +748,15 @@ footer { margin-top: 40px; text-align: center; color: var(--ink-soft); font-size
         return '<div class="alt"><span class="alt-label">' + esc(a.label) + "</span><div>" + esc(a.title) + "</div>" +
           (a.note ? '<p class="note">' + esc(a.note) + "</p>" : "") + krBlock(a.kr) + "</div>";
       }).join("");
+      if (it.kind === "move") {
+        var m = modeOf(it), mins = minsOf(it);
+        html += '<li class="' + cls + '"><div class="time">' + esc(it.time) + (it.tz === "tw" ? "<small>台灣</small>" : "") +
+          '</div><div class="leg leg-' + m + '"><div class="leg-top">' + badge + modePill(m) +
+          '<span class="leg-title">' + esc(it.title.replace(new RegExp("^" + MODE[m].name + "\\s+"), "")) + "</span>" + (mins ? '<span class="leg-min">' + mins + " 分</span>" : "") + "</div>" +
+          '<div class="leg-track" aria-hidden="true"><span class="leg-runner">' + MODE[m].svg + "</span></div>" +
+          (it.note ? '<p class="note">' + esc(it.note) + "</p>" : "") + krBlock(it.kr) + "</div></li>";
+        return;
+      }
       html += '<li class="' + cls + '"><div class="time">' + esc(it.time) + (it.tz === "tw" ? "<small>台灣</small>" : "") +
         '</div><div class="stop"><div class="stop-title">' + badge + "<span>" + esc(it.title) + "</span>" + tags + "</div>" +
         (it.note ? '<p class="note">' + esc(it.note) + "</p>" : "") + krBlock(it.kr) + alts + "</div></li>";
