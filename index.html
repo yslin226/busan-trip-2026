@@ -281,6 +281,30 @@ h2 .dot { width: 14px; height: 14px; border: var(--line); border-radius: 50%; fl
 .booked p { margin: 0; font-size: 14px; color: var(--ink-soft); }
 .booked strong { font-weight: 400; font-size: 16px; color: var(--ink); display: block; }
 
+/* 花費明細 */
+.money-sum { display: grid; gap: 6px; background: var(--yellow-pale); margin-top: 12px; }
+.money-row { display: flex; justify-content: space-between; gap: 12px; font-variant-numeric: tabular-nums; }
+.money-row.total { font-size: 21px; border-top: 2px dashed var(--ink); padding-top: 8px; margin-top: 4px; }
+.money-row .minus { color: #B2453A; }
+.money-cats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; margin-top: 12px; }
+.money-cat { display: flex; justify-content: space-between; align-items: center; gap: 6px; background: var(--white); border: 2px solid var(--ink); border-radius: 12px; padding: 6px 10px; font-size: 14px; font-variant-numeric: tabular-nums; }
+.money-days { display: grid; gap: 10px; margin-top: 14px; }
+.money-day { background: var(--white); border: var(--line); border-radius: var(--r-mid); overflow: hidden; }
+.money-day summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 12px 14px; font-size: 17px; }
+.money-day summary::-webkit-details-marker { display: none; }
+.money-day summary .amt { font-variant-numeric: tabular-nums; margin-left: auto; }
+.money-day summary .arrow { display: inline-block; transition: transform .2s; }
+.money-day[open] summary .arrow { transform: rotate(90deg); }
+.money-day[open] summary { border-bottom: 2px dotted var(--ink-soft); }
+.money-day summary small { color: var(--ink-soft); font-size: 13px; }
+.money-list { list-style: none; margin: 0; padding: 4px 14px 10px; }
+.money-list li { display: flex; align-items: center; gap: 8px; padding: 7px 0; font-size: 15px; border-bottom: 1px dotted #E2DAD1; }
+.money-list li:last-child { border-bottom: 0; }
+.money-list .name { flex: 1; min-width: 0; }
+.money-list .amt { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.mtag { font-size: 12px; padding: 0 7px; border: 2px solid var(--ink); border-radius: 999px; white-space: nowrap; line-height: 1.5; flex: none; }
+.m-food { background: var(--yellow); } .m-move { background: var(--water); } .m-ticket { background: var(--coral); } .m-shop { background: var(--bamboo); }
+
 footer { margin-top: 40px; text-align: center; color: var(--ink-soft); font-size: 13px; }
 
 .toast {
@@ -329,6 +353,7 @@ footer { margin-top: 40px; text-align: center; color: var(--ink-soft); font-size
     <a href="#plan">每日行程</a>
     <a href="#todo">待辦</a>
     <a href="#stay">住宿</a>
+    <a href="#money">花費明細</a>
   </div>
 </nav>
 
@@ -451,6 +476,14 @@ footer { margin-top: 40px; text-align: center; color: var(--ink-soft); font-size
       <div class="card"><span class="sw" style="background:var(--yellow)"></span><div><strong>鑽石灣夜間遊艇・10/27 20:30</strong><p>20:00 前到 부산 남구 분포로 101（龍湖灣遊覽船碼頭 1 樓），帶護照、通行證和外套</p></div></div>
       <div class="card"><span class="sw" style="background:var(--bamboo)"></span><div><strong>韓國旅遊諮詢熱線 1330</strong><p>24 小時，有中文服務，迷路或要翻譯可以打</p></div></div>
     </div>
+  </section>
+
+  <!-- 花費明細 -->
+  <section id="money">
+    <h2><span class="dot" style="background:var(--coral)"></span>花費明細</h2>
+    <p class="note" style="margin-top:0">這趟全部先由我刷卡，下面是信用卡帳單上的台幣金額。現金付的（例如棉被）沒有算在裡面。點每一天可以展開看每一筆。</p>
+    <div class="card money-sum" id="moneySum"></div>
+    <div class="money-days" id="moneyDays"></div>
   </section>
 
   <footer>這份行程是我們一家三口實際走過再整理的，歡迎拿去參考。<br>營業時間、班次以出發前 Naver Map 查到的為準。</footer>
@@ -677,6 +710,39 @@ footer { margin-top: 40px; text-align: center; color: var(--ink-soft); font-size
   ART.suitcase = '<svg viewBox="0 0 84 60" aria-hidden="true"><g class="float" style="animation-duration:3.6s"><rect x="34" y="8" width="16" height="10" rx="4" fill="none" stroke="#3E3A39" stroke-width="3"/><rect x="22" y="16" width="40" height="34" rx="8" fill="#B9DAA5" stroke="#3E3A39" stroke-width="3"/><line x1="22" y1="30" x2="62" y2="30" stroke="#3E3A39" stroke-width="3"/><circle cx="30" cy="53" r="3" fill="#3E3A39"/><circle cx="54" cy="53" r="3" fill="#3E3A39"/></g><path d="M66 12 q4-4 8 0 q4-4 8 0" fill="none" stroke="#3E3A39" stroke-width="2.5" stroke-linecap="round"/></svg>';
   var CHECK ='<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5 L6.5 12 L13 4.5" fill="none" stroke="#3E3A39" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
+  // ---------- 花費明細 ----------
+  // f 吃喝、m 交通寄物、t 門票、s 購物
+  var MONEY = [
+    { d: "10/24", w: "六", items: [["桃園機場咖啡",215,"f"],["晚餐：味贊王",2457,"f"],["CU 便利商店（西面樂天店）",372,"f"]] },
+    { d: "10/25", w: "日", items: [["7-ELEVEN 便利商店",459,"f"],["Korail 高鐵票",732,"m"],["黃金十元麵包",176,"f"],["Korail 車站商店",250,"f"],["Mega Coffee 咖啡",201,"f"],["天馬塚門票",225,"t"],["東宮與月池門票",225,"t"],["炸牛排餐廳",1265,"f"],["Korail 車站超商",176,"f"],["Korail 高鐵票",776,"m"],["Uber 計程車",481,"m"]] },
+    { d: "10/26", w: "一", items: [["甘川洞紀念品",325,"s"],["釜山豬腳",1473,"f"],["Paik's Coffee 咖啡",100,"f"],["Mega Coffee 咖啡",87,"f"],["松島纜車魚板點心",125,"f"],["白淺灘文化村小店",150,"s"],["7-ELEVEN 便利商店",249,"f"],["白淺灘午餐／海景咖啡廳",474,"f"],["Uber 計程車",336,"m"],["Uber 計程車",111,"m"],["Uber 計程車",131,"m"],["Uber 計程車",168,"m"]] },
+    { d: "10/27", w: "二", items: [["Busan X the SKY 做相框",568,"s"],["橋村炸雞",575,"f"],["星巴克咖啡",552,"f"],["Museum DAH 美術館",12,"t"],["遊艇加購（每人多 5,000 韓元）",370,"t"],["7-ELEVEN 便利商店",311,"f"],["巴黎貝甜麵包店",650,"f"],["Artbox 紀念品",1812,"s"],["Ediya Coffee 咖啡",104,"f"],["海東龍宮寺／青沙浦點心",123,"f"],["Uber 計程車",217,"m"],["Uber 計程車",69,"m"],["Uber 計程車",111,"m"],["Uber 計程車",586,"m"],["Uber 計程車",232,"m"],["Uber 計程車",262,"m"],["Uber 計程車",210,"m"],["Uber 計程車",124,"m"]] },
+    { d: "10/28", w: "三", items: [["地鐵寄物櫃 1",148,"m"],["地鐵寄物櫃 2",149,"m"],["韓國藥局",248,"s"],["Mega Coffee 咖啡",49,"f"],["樂天超市",3635,"s"],["螞蟻家辣炒章魚",994,"f"],["地鐵寄物櫃超時加價",24,"m"],["地鐵寄物櫃 3",149,"m"],["Olive Young 藥妝",3767,"s"],["Compose Coffee 咖啡",74,"f"],["地鐵寄物櫃 4",149,"m"],["金海機場 CU 超商",24,"f"],["代購菸",2760,"s"]] }
+  ];
+  var REFUND = ["東南旅行社退刷", -6919];
+  var MCAT = { f: ["吃喝","m-food"], m: ["交通寄物","m-move"], t: ["門票","m-ticket"], s: ["購物","m-shop"] };
+  function money(n) { return (n < 0 ? "−$" : "$") + Math.abs(n).toLocaleString("en-US"); }
+  function renderMoney() {
+    var total = 0, cats = { f: 0, m: 0, t: 0, s: 0 }, days = "";
+    MONEY.forEach(function (day) {
+      var sub = 0, rows = "";
+      day.items.forEach(function (it) {
+        sub += it[1]; cats[it[2]] += it[1];
+        rows += '<li><span class="mtag ' + MCAT[it[2]][1] + '">' + MCAT[it[2]][0] + '</span><span class="name">' + esc(it[0]) + '</span><span class="amt">' + money(it[1]) + '</span></li>';
+      });
+      total += sub;
+      days += '<details class="money-day"><summary><span class="arrow">▸</span><span>' + day.d + '（' + day.w + '）<small> ' + day.items.length + ' 筆</small></span><span class="amt">' + money(sub) + '</span></summary><ul class="money-list">' + rows + '</ul></details>';
+    });
+    var catHtml = "";
+    ["f","m","t","s"].forEach(function (k) { catHtml += '<div class="money-cat"><span class="mtag ' + MCAT[k][1] + '">' + MCAT[k][0] + '</span><span>' + money(cats[k]) + '</span></div>'; });
+    document.getElementById("moneySum").innerHTML =
+      '<div class="money-row"><span>5 天刷卡合計</span><span>' + money(total) + '</span></div>' +
+      '<div class="money-row"><span>' + REFUND[0] + '</span><span class="minus">' + money(REFUND[1]) + '</span></div>' +
+      '<div class="money-row total"><span>扣除退刷後總計</span><span>' + money(total + REFUND[1]) + '</span></div>' +
+      '<div class="money-cats">' + catHtml + '</div>';
+    document.getElementById("moneyDays").innerHTML = days;
+  }
+
   // ---------- 倒數 ----------
   function renderCount() {
     var now = Date.now();
@@ -829,7 +895,7 @@ footer { margin-top: 40px; text-align: center; color: var(--ink-soft); font-size
   var byHash = DAYS.findIndex(function (d) { return "#" + d.id === location.hash; });
   var byDate = DAYS.findIndex(function (d) { return d.ymd === k.ymd; });
   current = byHash >= 0 ? byHash : (byDate >= 0 ? byDate : 0);
-  renderCount(); renderTabs(); renderDay(false); renderTodo();
+  renderCount(); renderTabs(); renderDay(false); renderTodo(); renderMoney();
   if (byHash >= 0) { document.getElementById("plan").scrollIntoView(); }
   setInterval(function () { renderCount(); renderDay(false); }, 60000);
 })();
